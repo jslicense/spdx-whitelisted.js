@@ -1,3 +1,5 @@
+This package was forked from version 5.0.0 of [spdx-satisfies](https://www.npmjs.com/package/spdx-satisfies).
+
 ```javascript
 var assert = require('assert')
 var whitelisted = require('spdx-whitelisted')
