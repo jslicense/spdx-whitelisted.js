@@ -1,7 +1,7 @@
 {
-  "name": "spdx-satisfies",
-  "description": "test whether SPDX expressions satisfy licensing criteria",
-  "version": "5.0.0",
+  "name": "spdx-whitelisted",
+  "description": "test whether SPDX expressions satisfy license whitelists",
+  "version": "0.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com)",
   "contributors": [
     "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com)",
@@ -29,7 +29,7 @@
     "standards"
   ],
   "license": "MIT",
-  "repository": "kemitchell/spdx-satisfies.js",
+  "repository": "jslicense/spdx-whitelisted.js",
   "scripts": {
     "test": "defence -i javascript README.md | replace-require-self | node",
     "lint": "standard"

@@ -1,6 +1,6 @@
 ```javascript
 var assert = require('assert')
-var satisfies = require('spdx-satisfies')
+var whitelisted = require('spdx-whitelisted')
 ```
 
 This package exports a single function of two arguments:
@@ -11,7 +11,7 @@ This package exports a single function of two arguments:
 
 ```javascript
 assert(
-  satisfies(
+  whitelisted(
     {license: 'MIT'},
     [{license: 'MIT'}]
   )
@@ -23,12 +23,12 @@ The schema for SPDX expression data structures is the same returned by [spdx-exp
 ```javascript
 var parse = require('spdx-expression-parse')
 
-assert(satisfies(
+assert(whitelisted(
   parse('MIT'),
   [parse('ISC'), parse('MIT')]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   {license: 'Zlib'},
   [
     {license: 'ISC'},
@@ -37,7 +37,7 @@ assert(satisfies(
   ]
 ))
 
-assert(!satisfies(
+assert(!whitelisted(
   {license: 'GPL-3.0'},
   [
     {license: 'ISC'},
@@ -46,37 +46,37 @@ assert(!satisfies(
 ))
 
 
-assert(satisfies(
+assert(whitelisted(
   {license: 'GPL-2.0'},
   [{license: 'GPL-2.0', plus: true}]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   {license: 'GPL-3.0'},
   [{license: 'GPL-2.0', plus: true}]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   {license: 'GPL-1.0', plus: true},
   [{license: 'GPL-2.0', plus: true}]
 ))
 
-assert(!satisfies(
+assert(!whitelisted(
   {license: 'GPL-1.0'},
   [{license: 'GPL-2.0', plus: true}]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   {license: 'GPL-2.0-only'},
   [{license: 'GPL-2.0-only'}]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   {license: 'GPL-3.0-only'},
   [{license: 'GPL-2.0', plus: true}]
 ))
 
-assert(!satisfies(
+assert(!whitelisted(
   {license: 'GPL-2.0'},
   [
     {
@@ -87,7 +87,7 @@ assert(!satisfies(
   ]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   {
     license: 'GPL-3.0',
     exception: 'Bison-exception-2.2'
@@ -101,7 +101,7 @@ assert(satisfies(
   ]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   // (MIT OR GPL-2.0)
   {
     left: {license: 'MIT'},
@@ -114,7 +114,7 @@ assert(satisfies(
   ]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   // ((MIT OR Apache-2.0) AND (ISC OR GPL-2.0))
   {
     left: {
@@ -135,7 +135,7 @@ assert(satisfies(
   ]
 ))
 
-assert(satisfies(
+assert(whitelisted(
   // (MIT AND GPL-2.0)
   {
     left: {license: 'MIT'},
@@ -148,7 +148,7 @@ assert(satisfies(
   ]
 ))
 
-assert(!satisfies(
+assert(!whitelisted(
   // (MIT AND GPL-2.0)
   {
     left: {license: 'MIT'},
@@ -161,7 +161,7 @@ assert(!satisfies(
   ]
 ))
 
-assert(!satisfies(
+assert(!whitelisted(
   // (MIT AND (GPL-2.0 OR ISC))
   {
     left: {license: 'MIT'},
@@ -175,7 +175,7 @@ assert(!satisfies(
   [{license: 'MIT'}]
 ))
 
-assert(!satisfies(
+assert(!whitelisted(
   // (MIT OR Apache-2.0) AND (ISC OR GPL-2.0)
   {
     left: {
@@ -198,22 +198,22 @@ The exported function does a few naive type checks on arguments.  Do not rely on
 
 ```javascript
 assert.throws(function () {
-  satisfies('MIT', [parse('MIT')])
+  whitelisted('MIT', [parse('MIT')])
 }, /first argument/)
 
 assert.throws(function () {
-  satisfies({invalid: 'AST'}, [parse('MIT')])
+  whitelisted({invalid: 'AST'}, [parse('MIT')])
 }, /first argument/)
 
 assert.throws(function () {
-  satisfies(parse('MIT'), parse('MIT'))
+  whitelisted(parse('MIT'), parse('MIT'))
 }, /second argument/)
 
 assert.throws(function () {
-  satisfies(parse('MIT'), parse('MIT'))
+  whitelisted(parse('MIT'), parse('MIT'))
 }, /second argument/)
 
 assert.throws(function () {
-  satisfies(parse('MIT'), [{invalid: 'leaf'}])
+  whitelisted(parse('MIT'), [{invalid: 'leaf'}])
 }, /second argument/)
 ```
